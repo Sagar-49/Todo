@@ -194,6 +194,7 @@ label {
     padding-left: 20px;
     border-left: 2px solid #1acf47 ;
 }
+
 .texts{
     display: flex;
     flex-direction: column;
@@ -249,7 +250,7 @@ label {
         list-style-type: none;
     }
     .tasks-list{
-        padding: 10px;
+        padding: 5px;
         border-radius: 8px;
         margin-bottom: 10px;
         background-color: rgb(45, 45, 97);

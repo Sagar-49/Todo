@@ -66,8 +66,13 @@ function add() {
         error_ta.innerText = "";
         error_priority.innerText = "";
         addToList(task_name, priority_selected);
+        document.getElementById("secondary").style.display = "";
+
     }
+
 }
+
+
 function clearForm() {
     let task_name = document.getElementById("addtask");
     let priority_selected = document.getElementById("priority");
@@ -148,6 +153,14 @@ function getStatusWiseData(status) {
 }
 
 function closeAll() {
+    // let x = document.getElementById("secondary");
+    // if (x.style.display === "todoList") {
+    //     x.style.display = "block";
+    // } else {
+    //     x.style.display = "none";
+    // }
+    document.getElementById("secondary").style.display = "none";
+
     localStorage.removeItem("todoList");
     let parentNode = document.getElementById("tasks-wrapper");
     parentNode.innerHTML = "";
