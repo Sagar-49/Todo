@@ -22,6 +22,7 @@ function showTask() {
             let parentNode = document.getElementById("tasks-wrapper");
             parentNode.prepend(createList);
         });
+
     }
 }
 
@@ -40,6 +41,11 @@ function statusChange(id) {
     tempData[tempDataIndex]['completed'] = !tempData[tempDataIndex]['completed'];
     localStorage.setItem("todoList", JSON.stringify(tempData));
 }
+
+// function strikeData(id){
+//     let tempData = JSON.parse(localStorage.getItem("todoList"));
+//     let tempDataIndex = tempData.findIndex((item) => item.id == id);
+// }
 
 function add() {
     let task_name = document.getElementById("addtask").value;
@@ -153,12 +159,6 @@ function getStatusWiseData(status) {
 }
 
 function closeAll() {
-    // let x = document.getElementById("secondary");
-    // if (x.style.display === "todoList") {
-    //     x.style.display = "block";
-    // } else {
-    //     x.style.display = "none";
-    // }
     document.getElementById("secondary").style.display = "none";
 
     localStorage.removeItem("todoList");
