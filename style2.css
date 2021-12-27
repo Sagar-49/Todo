@@ -180,6 +180,9 @@ label {
 .tasks-wrapper{
     padding-left: 10px;
     list-style-type: none;
+    /* border-radius: 8px;
+    background-color: rgb(45, 45, 97); */
+    
 }
 .tasks-list{
     padding: 10px;
@@ -194,6 +197,10 @@ label {
     padding-left: 20px;
     border-left: 2px solid #1acf47 ;
 }
+
+/* .title{
+    text-decoration: line-through;
+} */
 
 .texts{
     display: flex;

@@ -40,12 +40,22 @@
         <div class="primary">
           <button type="submit" class="button-primary" id="addtaskButton" onclick="add()">Add</button></div>
         <div id="secondary" class="secondary">
-          <button class="button-All" id="all" onclick="allData()">All</button>
+          <button class="button-All " id="all" onclick="allData()">All</button>
           <button class="button-Completed" id="completed" onclick="getStatusWiseData(true)">Completed</button>
           <button class="button-Incompleted" id="incompleted" onclick="getStatusWiseData(false)">Incompleted</button>
         </div>
       </div>
       <ul id="tasks-wrapper" class="tasks-wrapper">
+        <!-- <div class="list">
+          <div class="texts">
+              <div class="title">Task Name</div>
+              <div class="importance">Importance</div>
+          </div>
+          <div class="buttons">
+              <input type="checkbox" name="check" id="check" class="checked">
+              <button class="delete" id="delete_bt"><i class="fas fa-trash-alt"></i></button>
+          </div>
+          </div> -->
       </ul>
     </div>
     <script src="script.js"></script>

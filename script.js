@@ -1,6 +1,9 @@
+
+
 function showTask() {
     let datas = localStorage.getItem("todoList");
-    if (datas) {
+
+    if (datas && JSON.parse(datas).length) {
         let tempDatas = JSON.parse(datas);
         tempDatas.forEach(item => {
             let createList = document.createElement("li");
@@ -9,7 +12,7 @@ function showTask() {
             let addList = `
                 <div class="list">
                 <div class="texts">
-                    <div class="title">${item.name}</div>
+                    <div class="title">${item.completed ? `<s>${item.name}</s>` : item.name}</div>
                     <div class="importance">${item.importance}</div>
                 </div>
                 <div class="buttons">
@@ -24,6 +27,9 @@ function showTask() {
         });
 
     }
+    else {
+        document.getElementById("secondary").style.display = "none";
+    }
 }
 
 function deleteTask(id) {
@@ -33,19 +39,29 @@ function deleteTask(id) {
     let tempDataIndex = tempData.findIndex((item) => item.id == id);
     tempData.splice(tempDataIndex, 1);
     localStorage.setItem("todoList", JSON.stringify(tempData));
+    if (!tempData.length) {
+        document.getElementById("secondary").style.display = "none";
+    }
 }
 
 function statusChange(id) {
     let tempData = JSON.parse(localStorage.getItem("todoList"));
-    let tempDataIndex = tempData.findIndex((item) => item.id == id);
+    let tempDataIndex = tempData.findIndex((item) => item.id === id);
     tempData[tempDataIndex]['completed'] = !tempData[tempDataIndex]['completed'];
-    localStorage.setItem("todoList", JSON.stringify(tempData));
+
+    {
+        let element = document.querySelector(`[id='${id}']`);
+        let tempTitle = element.getElementsByClassName("title")[0];
+        if (tempData[tempDataIndex]['completed']) {
+            tempTitle.style.textDecoration = 'line-through';
+        }
+        else {
+            tempTitle.style.textDecoration = 'none';
+        }
+        localStorage.setItem("todoList", JSON.stringify(tempData));
+    }
 }
 
-// function strikeData(id){
-//     let tempData = JSON.parse(localStorage.getItem("todoList"));
-//     let tempDataIndex = tempData.findIndex((item) => item.id == id);
-// }
 
 function add() {
     let task_name = document.getElementById("addtask").value;
@@ -75,9 +91,7 @@ function add() {
         document.getElementById("secondary").style.display = "";
 
     }
-
 }
-
 
 function clearForm() {
     let task_name = document.getElementById("addtask");
@@ -87,6 +101,21 @@ function clearForm() {
 }
 
 function addToList(name, importance, completed = false) {
+
+    let tempData = localStorage.getItem("todoList");
+    let getData = [];
+    if (tempData) {
+        getData = JSON.parse(tempData);
+    }
+    let tempObject = {
+        id: Date.now(),
+        name: name,
+        importance: importance,
+        completed: false
+    };
+    getData = [tempObject, ...getData];
+    localStorage.setItem("todoList", JSON.stringify(getData));
+
     let createList = document.createElement("li");
     createList.classList.add("tasks-list");
     createList.setAttribute("id", Date.now());
@@ -105,19 +134,7 @@ function addToList(name, importance, completed = false) {
     createList.innerHTML = addList;
     let parentNode = document.getElementById("tasks-wrapper");
     parentNode.prepend(createList);
-    let tempData = localStorage.getItem("todoList");
-    let getData = [];
-    if (tempData) {
-        getData = JSON.parse(tempData);
-    }
-    let tempObject = {
-        id: Date.now(),
-        name: name,
-        importance: importance,
-        completed: false
-    };
-    getData = [tempObject, ...getData];
-    localStorage.setItem("todoList", JSON.stringify(getData));
+    document.getElementById("secondary").style.display = "";
     clearForm();
 }
 
@@ -141,7 +158,7 @@ function getStatusWiseData(status) {
                 let addList = `
                 <div class="list">
                 <div class="texts">
-                    <div class="title">${item.name}</div>
+                    <div class="title">${item.completed ? `<s>${item.name}</s>` : item.name}</div>
                     <div class="importance">${item.importance}</div>
                 </div>
                 <div class="buttons">
